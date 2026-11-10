@@ -134,9 +134,19 @@
   .ba-section{background:var(--dark);color:#fff;overflow:hidden}
   .ba-section .lead{color:#aeb4bc}
   .ba-list{display:grid;gap:72px}
-  .ba-item{display:grid;grid-template-columns:1.45fr 1fr;gap:48px;align-items:center}
-  .ba-item:nth-child(even){grid-template-columns:1fr 1.45fr}
-  .ba-item:nth-child(even) .ba{order:2}
+  .ba-item{display:grid;grid-template-columns:1.7fr 1fr;gap:48px;align-items:center}
+  .ba-item:nth-child(even){grid-template-columns:1fr 1.7fr}
+  .ba-item:nth-child(even) .pair{order:2}
+  /* Пара «Было — Стало» рядом */
+  .pair{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .pair figure{position:relative;margin:0;aspect-ratio:1;border-radius:22px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,.9)}
+  .pair img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s var(--ease),filter .6s}
+  .pair figure.was img{filter:grayscale(.25) brightness(.92)}
+  .pair figure:hover img{transform:scale(1.06);filter:none}
+  .pair figcaption{position:absolute;top:14px;left:14px;padding:7px 14px;border-radius:999px;font-weight:800;font-size:13px;background:rgba(0,0,0,.6);backdrop-filter:blur(6px)}
+  .pair figure.now figcaption{background:var(--accent)}
+  .pair-arrow{position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:#fff;color:var(--accent);display:grid;place-items:center;font-size:22px;font-weight:800;box-shadow:0 0 0 6px rgba(255,255,255,.18),0 10px 30px rgba(0,0,0,.4);z-index:2;transition:transform .4s var(--ease)}
+  .pair:hover .pair-arrow{transform:translateX(4px)}
   .ba-num{font-family:Unbounded;font-size:14px;color:var(--accent);margin-bottom:12px}
   .ba-info h3{font-size:clamp(24px,2.6vw,32px);margin-bottom:12px}
   .ba-info p{color:#aeb4bc;margin-bottom:24px}
@@ -306,7 +316,7 @@
     .steps{grid-template-columns:repeat(3,1fr);row-gap:40px}
     .steps-line{display:none}
     .hero-grid,.calc,.order-grid,.faq-grid,.rev-grid,.ba-item,.ba-item:nth-child(even){grid-template-columns:1fr}
-    .ba-item:nth-child(even) .ba{order:0}
+    .ba-item:nth-child(even) .pair{order:0}
     .ba-item{gap:24px}
     .hero-visual{max-width:620px}
     nav,.top-phone{display:none}
@@ -320,6 +330,10 @@
     .services,.why-grid,.steps{grid-template-columns:1fr}
     .ba{border-radius:20px}
     .ba-list{gap:56px}
+    .pair{grid-template-columns:1fr}
+    .pair figure{aspect-ratio:4/3}
+    .pair-arrow{transform:rotate(90deg)}
+    .pair:hover .pair-arrow{transform:rotate(90deg)}
     .ba-handle{width:52px;height:52px;margin:-26px 0 0 -26px}
     .facts{gap:28px}
     .hero-visual{display:none}
@@ -448,10 +462,9 @@
 <section class="ba-section" id="before-after">
   <div class="wrap">
     <div class="eyebrow reveal">Было → стало</div>
-    <h2 class="reveal">Потяните ползунок</h2>
-    <p class="lead reveal">Три объекта, которые мы сдали в этом году: гостиная, кухня и санузел. Слева – день замера, справа – день сдачи.</p>
+    <h2 class="reveal">Было и стало</h2>
+    <p class="lead reveal">Три объекта, которые мы сдали в этом году: гостиная, кухня и санузел. Слева – день замера, справа – день сдачи. Наведите на фото, чтобы рассмотреть.</p>
     <div class="ba-list" id="baList"></div>
-    <div class="hint">👆 Тяните ползунок пальцем или мышкой</div>
   </div>
 </section>
 
@@ -675,12 +688,10 @@
   const list = $('#baList');
   list.innerHTML = projects.map((p, i) => `
     <div class="ba-item">
-      <div class="ba reveal">
-        <img class="after" alt="${p.title} после ремонта" loading="lazy">
-        <img class="before" alt="${p.title} до ремонта" loading="lazy">
-        <div class="ba-line"></div><div class="ba-handle">⇆</div>
-        <span class="ba-label l">До</span><span class="ba-label r">После</span>
-        <input type="range" min="0" max="100" value="50" aria-label="Сравнить до и после: ${p.title}">
+      <div class="pair reveal">
+        <figure class="was"><img class="before" alt="${p.title} до ремонта" loading="lazy"><figcaption>Было</figcaption></figure>
+        <figure class="now"><img class="after" alt="${p.title} после ремонта" loading="lazy"><figcaption>Стало</figcaption></figure>
+        <div class="pair-arrow">→</div>
       </div>
       <div class="ba-info reveal" style="--d:.1s">
         <div class="ba-num">0${i + 1} / 0${projects.length}</div>
@@ -690,18 +701,8 @@
       </div>
     </div>`).join('');
   list.querySelectorAll('.ba-item').forEach((item, i) => {
-    const ba = item.querySelector('.ba'), range = ba.querySelector('input');
-    loadImg(ba.querySelector('.after'), projects[i].img + '-after');
-    loadImg(ba.querySelector('.before'), projects[i].img + '-before');
-    const setPos = v => ba.style.setProperty('--pos', v + '%');
-    range.addEventListener('input', () => setPos(range.value));
-    // При появлении ползунок «показывает себя»: уезжает влево и возвращается в центр
-    if (!reduce) new IntersectionObserver((es, o) => es.forEach(e => {
-      if (!e.isIntersecting) return; o.disconnect();
-      let t0 = performance.now();
-      const anim = t => { const p = Math.min((t - t0) / 1400, 1); const v = 50 - 35 * Math.sin(p * Math.PI); range.value = v; setPos(v); if (p < 1) requestAnimationFrame(anim); };
-      requestAnimationFrame(anim);
-    }), {threshold:.5}).observe(ba);
+    loadImg(item.querySelector('.after'), projects[i].img + '-after');
+    loadImg(item.querySelector('.before'), projects[i].img + '-before');
   });
   list.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
