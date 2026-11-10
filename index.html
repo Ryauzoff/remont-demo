@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>РОВНО – ремонт квартир под ключ в Перми</title>
+<meta name="description" content="Черновой и чистовой ремонт квартир, санузлы под ключ в Перми. Договор и фиксированная смета. Бесплатный замер.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16181b; --ink-2:#555b63; --paper:#f5f1ea; --card:#fff;
+    --line:#e4ded3; --accent:#ff6a2b; --accent-2:#ff9b54; --accent-dark:#d94f14;
+    --dark:#121417; --dark-2:#1c1f24; --r:20px;
+    --ease:cubic-bezier(.2,.7,.2,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:Manrope,system-ui,sans-serif;color:var(--ink);background:var(--paper);line-height:1.55;font-size:17px;overflow-x:hidden}
+  h1,h2,h3{font-family:Unbounded,sans-serif;line-height:1.1;font-weight:700;letter-spacing:-.01em}
+  h2{font-size:clamp(28px,4.5vw,48px);margin-bottom:14px}
+  a{color:inherit}
+  img{display:block;max-width:100%}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 16px}
+  section{padding:96px 0;position:relative}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+  .eyebrow::before{content:"";width:22px;height:2px;background:currentColor}
+  .lead{color:var(--ink-2);max-width:620px;margin-bottom:48px;font-size:18px}
+  .grad{background:linear-gradient(100deg,var(--accent),var(--accent-2));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+  .btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--accent);color:#fff;text-decoration:none;font-weight:800;border:0;border-radius:999px;padding:18px 32px;font-size:17px;cursor:pointer;font-family:inherit;overflow:hidden;transition:transform .3s var(--ease),box-shadow .3s}
+  .btn::after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.45) 50%,transparent 70%);transform:translateX(-120%);transition:transform .8s var(--ease)}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 14px 34px -10px rgba(255,106,43,.7)}
+  .btn:hover::after{transform:translateX(120%)}
+  .btn .arr{transition:transform .3s var(--ease)}
+  .btn:hover .arr{transform:translateX(4px)}
+  .btn-ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.25);backdrop-filter:blur(8px)}
+  .btn-ghost:hover{box-shadow:none;background:rgba(255,255,255,.12)}
+  .pulse{animation:pulse 2.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,106,43,.55)}70%{box-shadow:0 0 0 18px rgba(255,106,43,0)}100%{box-shadow:0 0 0 0 rgba(255,106,43,0)}}
+
+  /* полоса прогресса прокрутки */
+  .progress{position:fixed;top:0;left:0;height:3px;width:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));transform-origin:0 50%;transform:scaleX(0);z-index:60}
+
+  /* Шапка */
+  header{position:fixed;top:0;left:0;right:0;z-index:50;transition:background .3s,box-shadow .3s,height .3s;color:#fff}
+  header.scrolled{background:rgba(18,20,23,.82);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(255,255,255,.06)}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:16px;height:80px;transition:height .3s}
+  header.scrolled .top{height:64px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:Unbounded;font-weight:800;font-size:20px;text-decoration:none;letter-spacing:.04em}
+  .logo-mark{width:34px;height:34px;border-radius:10px;background:var(--accent);display:grid;place-items:center}
+  .logo-mark i{display:block;width:22px;height:10px;border:2px solid #fff;border-radius:6px;position:relative}
+  .logo-mark i::after{content:"";position:absolute;left:50%;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:#fff}
+  nav{display:flex;gap:28px;font-weight:600;font-size:15px}
+  nav a{text-decoration:none;opacity:.75;transition:opacity .2s;position:relative}
+  nav a::after{content:"";position:absolute;left:0;right:100%;bottom:-6px;height:2px;background:var(--accent);transition:right .3s var(--ease)}
+  nav a:hover{opacity:1}
+  nav a:hover::after{right:0}
+  .top-right{display:flex;align-items:center;gap:18px}
+  .top-phone{font-weight:800;text-decoration:none;white-space:nowrap}
+  .top .btn{padding:12px 20px;font-size:15px}
+
+  /* Первый экран */
+  .hero{background:var(--dark);color:#fff;padding:150px 0 90px;overflow:hidden;min-height:100vh;display:flex;align-items:center}
+  .hero-bg{position:absolute;inset:0;pointer-events:none}
+  .blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.55;animation:float 14s ease-in-out infinite}
+  .blob.b1{width:520px;height:520px;background:#ff6a2b;top:-160px;right:-120px}
+  .blob.b2{width:420px;height:420px;background:#4a6d68;bottom:-200px;left:-120px;animation-delay:-5s}
+  @keyframes float{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-40px,30px) scale(1.08)}}
+  .grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 60% 40%,#000 30%,transparent 75%)}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center;position:relative;z-index:1}
+  .tag{display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.05);border-radius:999px;padding:8px 16px 8px 10px;font-size:14px;margin-bottom:28px}
+  .tag .dot{width:8px;height:8px;border-radius:50%;background:#3ddc84;box-shadow:0 0 0 4px rgba(61,220,132,.2);animation:blink 1.8s infinite}
+  @keyframes blink{50%{opacity:.35}}
+  .hero h1{font-size:clamp(36px,5.6vw,72px);margin-bottom:24px;font-weight:800}
+  .rotator{display:inline-block;position:relative;vertical-align:bottom;height:1.15em;overflow:hidden;white-space:nowrap}
+  .rotator span{display:block;animation:none}
+  .rotator span.in{animation:rin .6s var(--ease) both}
+  @keyframes rin{from{transform:translateY(100%);opacity:0}to{transform:none;opacity:1}}
+  .hero p.sub{font-size:clamp(17px,1.6vw,20px);color:#b9bec6;max-width:540px;margin-bottom:38px}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:14px}
+  .facts{display:flex;gap:44px;margin-top:56px;flex-wrap:wrap}
+  .facts b{display:block;font-family:Unbounded;font-size:clamp(28px,3vw,40px);font-weight:700}
+  .facts span{color:#8f96a0;font-size:14px}
+
+  .photo-bg{position:absolute;inset:0;overflow:hidden}
+  .photo-bg img{width:100%;height:100%;object-fit:cover;animation:kb 28s ease-in-out infinite alternate;transform-origin:70% 40%}
+  .photo-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(14,15,18,.94) 0%,rgba(14,15,18,.78) 38%,rgba(14,15,18,.25) 75%,rgba(14,15,18,.45) 100%),linear-gradient(0deg,rgba(14,15,18,.9) 0%,transparent 35%)}
+  @keyframes kb{from{transform:scale(1)}to{transform:scale(1.14) translate(-1.5%,1%)}}
+  .hero .blob.b1{opacity:.28}
+  .hero .grid-lines{opacity:.5}
+  .hero-visual{position:relative;height:420px;transition:transform .5s var(--ease)}
+  .float-card{position:absolute;background:rgba(255,255,255,.95);color:var(--ink);border-radius:16px;padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 20px 40px -12px rgba(0,0,0,.5);font-size:14px;animation:bob 5s ease-in-out infinite}
+  .float-card b{display:block;font-size:15px}
+  .float-card .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:#ffe6da;flex:0 0 40px}
+  .fc1{left:10%;bottom:30px}
+  .fc2{right:0;top:40px;animation-delay:-2.5s}
+  .fc3{right:14%;top:52%;animation-delay:-1.2s}
+  .fc3 .ic{background:#fff4d6}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+
+  /* Бегущая строка */
+  .marquee{background:var(--accent);color:#fff;padding:22px 0;overflow:hidden;transform:rotate(-1.5deg);margin:-14px -10px 0;position:relative;z-index:2}
+  .marquee-track{display:flex;gap:48px;width:max-content;animation:marq 30s linear infinite;font-family:Unbounded;font-weight:700;font-size:clamp(18px,2.4vw,28px);white-space:nowrap}
+  .marquee-track span{display:flex;align-items:center;gap:48px}
+  .marquee-track span::after{content:"✦";font-size:.8em}
+  @keyframes marq{to{transform:translateX(-50%)}}
+
+  /* Услуги */
+  .services{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;transition:transform .4s var(--ease),box-shadow .4s}
+  .card::before{content:"";position:absolute;inset:0;background:radial-gradient(360px circle at var(--x,50%) var(--y,0%),rgba(255,106,43,.14),transparent 45%);opacity:0;transition:opacity .3s;pointer-events:none;z-index:1}
+  .card:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(0,0,0,.35)}
+  .card:hover::before{opacity:1}
+  .card-img{aspect-ratio:4/3;overflow:hidden;background:#ddd}
+  .card-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+  .card:hover .card-img img{transform:scale(1.07)}
+  .card-body{padding:24px;display:flex;flex-direction:column;flex:1}
+  .card h3{font-size:19px;margin-bottom:10px}
+  .card p{color:var(--ink-2);font-size:15px;margin-bottom:14px}
+  .card ul{list-style:none;font-size:15px;color:var(--ink-2);margin-bottom:18px}
+  .card li{padding-left:20px;position:relative;margin-bottom:6px}
+  .card li::before{content:"";position:absolute;left:0;top:10px;width:10px;height:2px;background:var(--accent)}
+  .price{margin-top:auto;padding-top:16px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline}
+  .price b{font-family:Unbounded;font-size:20px}
+  .price span{color:var(--ink-2);font-size:14px}
+  .card.hot{background:var(--dark);color:#fff;border-color:var(--dark)}
+  .card.hot p,.card.hot ul,.card.hot .price span{color:#aeb4bc}
+  .card.hot .price{border-color:rgba(255,255,255,.12)}
+  .badge{position:absolute;top:14px;left:14px;z-index:2;background:var(--accent);color:#fff;font-weight:800;font-size:12px;padding:6px 12px;border-radius:999px;letter-spacing:.04em}
+
+  /* До / после */
+  .ba-section{background:var(--dark);color:#fff;overflow:hidden}
+  .ba-section .lead{color:#aeb4bc}
+  .ba-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
+  .ba-head .lead{margin-bottom:0}
+  .tabs{display:flex;gap:6px;background:rgba(255,255,255,.06);padding:6px;border-radius:999px;border:1px solid rgba(255,255,255,.1)}
+  .tabs button{font:inherit;font-weight:700;font-size:15px;color:#cfd3d8;background:none;border:0;padding:10px 20px;border-radius:999px;cursor:pointer;transition:background .3s,color .3s}
+  .tabs button.active{background:#fff;color:var(--ink)}
+  .ba{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:16/10;user-select:none;--pos:50%;box-shadow:0 40px 80px -40px rgba(0,0,0,.9)}
+  .ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .4s}
+  .ba .before{clip-path:inset(0 calc(100% - var(--pos)) 0 0)}
+  .ba-line{position:absolute;top:0;bottom:0;left:var(--pos);width:3px;margin-left:-1.5px;background:#fff;pointer-events:none}
+  .ba-handle{position:absolute;top:50%;left:var(--pos);width:64px;height:64px;margin:-32px 0 0 -32px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:#fff;font-size:22px;font-weight:800;box-shadow:0 0 0 6px rgba(255,255,255,.25),0 10px 30px rgba(0,0,0,.4);pointer-events:none;transition:transform .2s}
+  .ba:active .ba-handle{transform:scale(1.1)}
+  .ba-label{position:absolute;top:20px;padding:8px 16px;border-radius:999px;font-weight:800;font-size:14px;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);pointer-events:none}
+  .ba-label.l{left:20px}
+  .ba-label.r{right:20px;background:var(--accent)}
+  .ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
+  .ba-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px}
+  .ba-meta div{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px}
+  .ba-meta span{display:block;color:#8f96a0;font-size:13px;margin-bottom:4px}
+  .ba-meta b{font-family:Unbounded;font-size:18px}
+  .hint{display:flex;align-items:center;gap:8px;color:#8f96a0;font-size:14px;margin-top:16px}
+
+  /* Калькулятор */
+  .calc{display:grid;grid-template-columns:1.2fr 1fr;gap:24px;align-items:stretch}
+  .calc-form,.calc-out{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:36px}
+  .calc-form h3,.calc-out h3{font-size:20px;margin-bottom:24px}
+  .field{margin-bottom:28px}
+  .field-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;font-weight:700}
+  .field-top output{font-family:Unbounded;color:var(--accent);font-size:22px}
+  input[type=range].slider{-webkit-appearance:none;appearance:none;width:100%;height:8px;border-radius:999px;background:linear-gradient(90deg,var(--accent) var(--fill,30%),#ebe5da var(--fill,30%));outline:none}
+  input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:#fff;border:6px solid var(--accent);cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+  input[type=range].slider::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:6px solid var(--accent);cursor:pointer}
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chips label{position:relative}
+  .chips input{position:absolute;opacity:0}
+  .chips span{display:block;padding:12px 18px;border-radius:999px;border:1px solid var(--line);font-weight:700;font-size:15px;cursor:pointer;transition:all .25s}
+  .chips input:checked+span{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .chips input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+  .toggle{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 0;border-top:1px solid var(--line);cursor:pointer;font-weight:600}
+  .toggle input{position:absolute;opacity:0}
+  .sw{width:52px;height:30px;border-radius:999px;background:#e2dbcf;position:relative;flex:0 0 52px;transition:background .3s}
+  .sw::after{content:"";position:absolute;top:4px;left:4px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .3s var(--ease);box-shadow:0 2px 6px rgba(0,0,0,.2)}
+  .toggle input:checked+.sw{background:var(--accent)}
+  .toggle input:checked+.sw::after{transform:translateX(22px)}
+  .toggle input:focus-visible+.sw{outline:2px solid var(--accent);outline-offset:2px}
+  .calc-out{background:var(--dark);color:#fff;border-color:var(--dark);display:flex;flex-direction:column;position:relative;overflow:hidden}
+  .calc-out::before{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:var(--accent);filter:blur(90px);opacity:.35;top:-120px;right:-100px}
+  .calc-out>*{position:relative}
+  .total{font-family:Unbounded;font-size:clamp(34px,4vw,50px);font-weight:800;margin:6px 0 4px}
+  .muted{color:#8f96a0;font-size:14px}
+  .rows{margin:28px 0;display:grid;gap:12px;font-size:15px}
+  .rows div{display:flex;justify-content:space-between;border-bottom:1px dashed rgba(255,255,255,.12);padding-bottom:10px}
+  .rows span{color:#aeb4bc}
+  .calc-out .btn{margin-top:auto}
+
+  /* Почему мы */
+  .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+  .why-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:30px;transition:transform .4s var(--ease),border-color .3s}
+  .why-card:hover{transform:translateY(-6px);border-color:var(--accent)}
+  .why-card .ic{width:56px;height:56px;border-radius:16px;background:#ffe6da;display:grid;place-items:center;margin-bottom:22px;transition:transform .5s var(--ease)}
+  .why-card:hover .ic{transform:rotate(-8deg) scale(1.08)}
+  .why-card svg{width:28px;height:28px;stroke:var(--accent-dark);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .why-card h3{font-size:18px;margin-bottom:10px}
+  .why-card p{color:var(--ink-2);font-size:15px}
+
+  /* Этапы */
+  .steps{display:grid;grid-template-columns:repeat(6,1fr);gap:20px;position:relative;padding-top:12px}
+  .steps-line{position:absolute;top:40px;left:28px;right:28px;height:2px;background:var(--line)}
+  .steps-line i{position:absolute;inset:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));transform-origin:0 50%;transform:scaleX(0);transition:transform 1.8s var(--ease)}
+  .steps.in .steps-line i{transform:scaleX(1)}
+  .step{position:relative}
+  .step .n{width:56px;height:56px;border-radius:50%;background:var(--card);border:2px solid var(--line);display:grid;place-items:center;font-family:Unbounded;font-weight:700;margin-bottom:20px;position:relative;z-index:1;transition:background .4s,border-color .4s,color .4s}
+  .steps.in .step .n{background:var(--ink);border-color:var(--ink);color:#fff}
+  .steps.in .step.free .n{background:var(--accent);border-color:var(--accent)}
+  .step h3{font-size:16px;margin-bottom:6px}
+  .step p{font-size:14px;color:var(--ink-2)}
+  .step small{display:inline-block;margin-top:8px;font-weight:800;font-size:12px;color:var(--accent-dark);background:#ffe6da;padding:3px 10px;border-radius:999px}
+
+  /* Отзывы */
+  .rev-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center}
+  .rating{display:flex;align-items:center;gap:20px;margin-bottom:28px}
+  .rating b{font-family:Unbounded;font-size:72px;line-height:1;font-weight:800}
+  .stars{color:#ffb020;letter-spacing:3px;font-size:20px}
+  .rating span{display:block;color:var(--ink-2);font-size:15px}
+  .platforms{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:32px}
+  .platforms div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;font-size:14px;color:var(--ink-2)}
+  .platforms strong{color:var(--ink);font-size:16px;margin-right:6px}
+  /* 3D-лента отзывов */
+  .stage{position:relative;height:580px;overflow:hidden;perspective:300px;display:flex;align-items:center;justify-content:center;border-radius:28px}
+  .tilt{display:flex;gap:16px;transform:translateX(-60px) translateZ(-100px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg)}
+  .mq{--duration:40s;--gap:16px;display:flex;flex-direction:column;gap:var(--gap);padding:4px}
+  .mq-group{display:flex;flex-direction:column;gap:var(--gap);flex-shrink:0;animation:mqv var(--duration) linear infinite}
+  .mq.up .mq-group{animation-direction:reverse}
+  .mq:hover .mq-group{animation-play-state:paused}
+  @keyframes mqv{from{transform:translateY(0)}to{transform:translateY(calc(-100% - var(--gap)))}}
+  .tcard{width:230px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 10px 30px -18px rgba(0,0,0,.35);transition:border-color .3s}
+  .tcard:hover{border-color:var(--accent)}
+  .tcard .who{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+  .ava{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;font-size:15px;flex:0 0 36px}
+  .tcard .who b{display:block;font-size:14px}
+  .tcard .who span{display:block;color:var(--ink-2);font-size:12px}
+  .tcard p{font-size:13.5px;line-height:1.45}
+  .tcard .st{color:#ffb020;font-size:12px;letter-spacing:2px;margin-bottom:6px}
+  .fade{position:absolute;pointer-events:none;z-index:2}
+  .fade.t{inset:0 0 auto 0;height:25%;background:linear-gradient(to bottom,var(--paper),transparent)}
+  .fade.b{inset:auto 0 0 0;height:25%;background:linear-gradient(to top,var(--paper),transparent)}
+  .fade.l{inset:0 auto 0 0;width:22%;background:linear-gradient(to right,var(--paper),transparent)}
+  .fade.r{inset:0 0 0 auto;width:22%;background:linear-gradient(to left,var(--paper),transparent)}
+
+  /* Вопросы */
+  .faq-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:56px}
+  details{border-bottom:1px solid var(--line)}
+  summary{cursor:pointer;font-weight:700;font-size:18px;list-style:none;display:flex;justify-content:space-between;gap:16px;padding:24px 0}
+  summary::-webkit-details-marker{display:none}
+  summary i{flex:0 0 32px;height:32px;border-radius:50%;background:var(--card);border:1px solid var(--line);position:relative;transition:transform .35s var(--ease),background .3s}
+  summary i::before,summary i::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;margin:-1px 0 0 -6px;background:var(--ink)}
+  summary i::after{transform:rotate(90deg)}
+  details[open] summary i{transform:rotate(45deg);background:var(--accent);border-color:var(--accent)}
+  details[open] summary i::before,details[open] summary i::after{background:#fff}
+  .ans{overflow:hidden;color:var(--ink-2);padding-bottom:24px;animation:open .4s var(--ease)}
+  @keyframes open{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+
+  /* Заявка */
+  .order{background:var(--dark);color:#fff;overflow:hidden}
+  .order .blob.b1{top:auto;bottom:-260px;right:-200px}
+  .order-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative;z-index:1}
+  .order .lead{color:#aeb4bc}
+  .perks{list-style:none;display:grid;gap:14px}
+  .perks li{display:flex;gap:14px;align-items:center;font-weight:600}
+  .perks li i{width:32px;height:32px;border-radius:50%;background:rgba(255,106,43,.18);color:var(--accent);display:grid;place-items:center;font-style:normal;font-weight:800;flex:0 0 32px}
+  .timer{margin-top:32px;display:inline-flex;gap:12px;align-items:center;padding:14px 20px;border-radius:16px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);font-size:15px}
+  .timer b{color:var(--accent)}
+  form{background:var(--card);color:var(--ink);border-radius:28px;padding:36px;box-shadow:0 40px 80px -30px rgba(0,0,0,.7)}
+  form h3{font-size:22px;margin-bottom:6px}
+  form .muted{margin-bottom:24px}
+  .fl{position:relative;margin-bottom:16px}
+  .fl input,.fl select{width:100%;font:inherit;padding:24px 18px 10px;border:1px solid var(--line);border-radius:14px;background:var(--paper);transition:border-color .2s,box-shadow .2s;appearance:none}
+  .fl label{position:absolute;left:18px;top:17px;color:var(--ink-2);pointer-events:none;transition:all .2s var(--ease)}
+  .fl input:focus,.fl select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px rgba(255,106,43,.15)}
+  .fl input:focus+label,.fl input:not(:placeholder-shown)+label,.fl select+label{top:7px;font-size:12px;font-weight:700}
+  .fl.bad input{border-color:#e53935;animation:shake .4s}
+  @keyframes shake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+  .check{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink-2);margin:6px 0 18px;cursor:pointer}
+  .check input{margin-top:3px;accent-color:var(--accent);width:16px;height:16px}
+  form .btn{width:100%}
+  .err{color:#e53935;font-size:14px;margin-top:12px;min-height:20px}
+  .ok{display:none;text-align:center;padding:30px 0}
+  .ok svg{width:90px;height:90px;margin:0 auto 20px}
+  .ok circle{stroke:var(--accent);stroke-width:4;fill:none;stroke-dasharray:283;stroke-dashoffset:283;animation:draw .8s var(--ease) forwards}
+  .ok path{stroke:var(--accent);stroke-width:6;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:60;stroke-dashoffset:60;animation:draw .5s .6s var(--ease) forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .ok h3{margin-bottom:8px}
+
+  footer{background:#0c0d0f;color:#8f96a0;padding:56px 0 110px;font-size:15px}
+  .foot{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px}
+  footer b{color:#fff;display:block;margin-bottom:10px}
+  footer a{text-decoration:none}
+  footer a:hover{color:#fff}
+  .foot .logo{color:#fff;margin-bottom:14px}
+  .demo-note{margin-top:40px;padding-top:24px;border-top:1px solid rgba(255,255,255,.08);font-size:13px}
+
+  .mobile-call{display:none}
+
+  /* Появление при прокрутке */
+  .js .reveal{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease);transition-delay:var(--d,0s)}
+  .js .reveal.in{opacity:1;transform:none}
+
+  @media (max-width:1060px){
+    .services,.why-grid{grid-template-columns:repeat(2,1fr)}
+    .steps{grid-template-columns:repeat(3,1fr);row-gap:40px}
+    .steps-line{display:none}
+    .hero-grid,.calc,.order-grid,.faq-grid,.rev-grid{grid-template-columns:1fr}
+    .hero-visual{max-width:620px}
+    nav,.top-phone{display:none}
+    .foot{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:640px){
+    body{font-size:16px}
+    section{padding:64px 0}
+    .hero{padding:110px 0 64px;min-height:0}
+    .hero h1{font-size:30px}
+    .services,.why-grid,.steps{grid-template-columns:1fr}
+    .ba{aspect-ratio:4/3;border-radius:20px}
+    .ba-meta{grid-template-columns:1fr 1fr}
+    .ba-handle{width:52px;height:52px;margin:-26px 0 0 -26px}
+    .tabs{width:100%}
+    .tabs button{flex:1;padding:10px 6px;font-size:14px}
+    .facts{gap:28px}
+    .hero-visual{display:none}
+    .photo-bg::after{background:linear-gradient(180deg,rgba(14,15,18,.55) 0%,rgba(14,15,18,.85) 55%,rgba(14,15,18,.97) 100%)}
+    .top .btn{display:none}
+    .hero-actions .btn{width:100%}
+    .calc-form,.calc-out,form{padding:24px}
+    .stage{height:460px;margin:0 -16px;border-radius:0}
+    .tilt{transform:translateX(-30px) translateZ(-100px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg);gap:12px}
+    .tcard{width:190px}
+    .rating b{font-size:56px}
+    .foot{grid-template-columns:1fr}
+    .mobile-call{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:40;gap:10px;transform:translateY(120%);transition:transform .4s var(--ease)}
+    .mobile-call.show{transform:none}
+    .mobile-call a{flex:1;text-align:center;padding:15px 10px;border-radius:999px;font-weight:800;font-size:15px;white-space:nowrap;text-decoration:none;box-shadow:0 10px 30px rgba(0,0,0,.3)}
+    .mobile-call .c1{background:#fff;color:var(--ink)}
+    .mobile-call .c2{background:var(--accent);color:#fff}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .js .reveal{opacity:1;transform:none}
+  }
+</style>
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<header id="header">
+  <div class="wrap top">
+    <a href="#" class="logo"><span class="logo-mark"><i></i></span>РОВНО</a>
+    <nav>
+      <a href="#services">Услуги</a>
+      <a href="#before-after">До / после</a>
+      <a href="#calc">Калькулятор</a>
+      <a href="#steps">Этапы</a>
+      <a href="#faq">Вопросы</a>
+    </nav>
+    <div class="top-right">
+      <a class="top-phone" href="tel:+73420000000">+7 (342) 000-00-00</a>
+      <a href="#order" class="btn">Бесплатный замер</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-bg"><div class="photo-bg"><img src="https://images.unsplash.com/photo-1680416124510-5eae1beca412?w=2000&q=75&auto=format&fit=crop" alt="" fetchpriority="high"></div><div class="blob b1"></div><div class="grid-lines"></div></div>
+  <div class="wrap hero-grid">
+    <div>
+      <div class="tag reveal"><span class="dot"></span>Принимаем заявки на замер в Перми</div>
+      <h1 class="reveal" style="--d:.1s">Ремонт квартир <span class="grad">под&nbsp;ключ</span><br><span class="rotator" id="rotator"><span class="in">без сюрпризов</span></span></h1>
+      <p class="sub reveal" style="--d:.2s">Черновой и чистовой ремонт, санузлы под ключ. Смета и договор до начала работ: цена не вырастет в процессе.</p>
+      <div class="hero-actions reveal" style="--d:.3s">
+        <a href="#order" class="btn pulse">Вызвать замерщика бесплатно <span class="arr">→</span></a>
+        <a href="#before-after" class="btn btn-ghost">Смотреть работы</a>
+      </div>
+      <div class="facts reveal" style="--d:.4s">
+        <div><b><span data-count="9">0</span> лет</b><span>ремонтируем в Перми</span></div>
+        <div><b><span data-count="240">0</span>+</b><span>сданных квартир</span></div>
+        <div><b><span data-count="3">0</span> года</b><span>гарантия на работы</span></div>
+      </div>
+    </div>
+    <div class="hero-visual reveal" style="--d:.25s">
+      <div class="float-card fc2"><div class="ic">✅</div><div><b>Цена в договоре</b>не меняется</div></div>
+      <div class="float-card fc3"><div class="ic">⭐</div><div><b>4,9 из 5</b>на 2ГИС и Яндекс Картах</div></div>
+      <div class="float-card fc1"><div class="ic">📄</div><div><b>Смета за 1 день</b>после замера</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>Черновой ремонт</span><span>Чистовой ремонт</span><span>Санузлы под ключ</span><span>Договор и смета</span><span>Бесплатный замер</span><span>Гарантия 3 года</span>
+    <span>Черновой ремонт</span><span>Чистовой ремонт</span><span>Санузлы под ключ</span><span>Договор и смета</span><span>Бесплатный замер</span><span>Гарантия 3 года</span>
+  </div>
+</div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="eyebrow reveal">Услуги</div>
+    <h2 class="reveal">Что мы делаем</h2>
+    <p class="lead reveal">Весь ремонт целиком или отдельный этап. Каждая работа отдельной строкой в смете.</p>
+    <div class="services">
+      <article class="card reveal">
+        <div class="card-img"><img src="img/card-rough.jpg" alt="Квартира перед черновым ремонтом" loading="lazy"></div>
+        <div class="card-body">
+          <h3>Черновой ремонт</h3>
+          <p>Готовим квартиру к отделке: всё, что потом скроется под финишем.</p>
+          <ul><li>Демонтаж и вывоз мусора</li><li>Электрика и сантехника</li><li>Стяжка и штукатурка</li></ul>
+          <div class="price"><b>от 4 500 ₽</b><span>за м²</span></div>
+        </div>
+      </article>
+      <article class="card reveal" style="--d:.08s">
+        <div class="card-img"><img src="img/card-finish.jpg" alt="Гостиная после чистового ремонта" loading="lazy"></div>
+        <div class="card-body">
+          <h3>Чистовой ремонт</h3>
+          <p>Финишная отделка: то, что вы видите и трогаете каждый день.</p>
+          <ul><li>Покраска, обои, декор</li><li>Ламинат, паркет, плитка</li><li>Двери и плинтусы</li></ul>
+          <div class="price"><b>от 5 500 ₽</b><span>за м²</span></div>
+        </div>
+      </article>
+      <article class="card reveal" style="--d:.16s">
+        <div class="card-img"><img src="img/bath-after.jpg" alt="Санузел под ключ" loading="lazy"></div>
+        <div class="card-body">
+          <h3>Санузел под ключ</h3>
+          <p>Ванная и туалет от демонтажа до последнего крючка.</p>
+          <ul><li>Гидроизоляция</li><li>Плитка и затирка</li><li>Монтаж сантехники</li></ul>
+          <div class="price"><b>от 140 000 ₽</b><span>за всё</span></div>
+        </div>
+      </article>
+      <article class="card hot reveal" style="--d:.24s">
+        <span class="badge">ХИТ</span>
+        <div class="card-img"><img src="img/living-after.jpg" alt="Квартира под ключ" loading="lazy"></div>
+        <div class="card-body">
+          <h3>Квартира под ключ</h3>
+          <p>От голых стен до квартиры, в которую можно заезжать.</p>
+          <ul><li>Черновой + чистовой этап</li><li>Одна смета на всё</li><li>Личный прораб</li></ul>
+          <div class="price"><b>от 9 900 ₽</b><span>за м²</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="ba-section" id="before-after">
+  <div class="wrap">
+    <div class="ba-head">
+      <div>
+        <div class="eyebrow reveal">Было → стало</div>
+        <h2 class="reveal">Потяните ползунок</h2>
+        <p class="lead reveal">Три объекта, которые мы сдали в этом году. Слева квартира в день замера, справа в день сдачи.</p>
+      </div>
+      <div class="tabs reveal" role="tablist">
+        <button class="active" data-ba="0" role="tab">Гостиная</button>
+        <button data-ba="1" role="tab">Санузел</button>
+        <button data-ba="2" role="tab">Кухня</button>
+      </div>
+    </div>
+    <div class="ba reveal" id="ba">
+      <img class="after" id="baAfter" alt="После ремонта">
+      <img class="before" id="baBefore" alt="До ремонта">
+      <div class="ba-line"></div>
+      <div class="ba-handle">⇆</div>
+      <span class="ba-label l">До</span><span class="ba-label r">После</span>
+      <input type="range" min="0" max="100" value="50" id="baRange" aria-label="Сравнить до и после">
+    </div>
+    <div class="ba-meta reveal" id="baMeta"></div>
+    <div class="hint">👆 Тяните ползунок пальцем или мышкой</div>
+  </div>
+</section>
+
+<section id="calc">
+  <div class="wrap">
+    <div class="eyebrow reveal">Калькулятор</div>
+    <h2 class="reveal">Сколько будет стоить?</h2>
+    <p class="lead reveal">Примерный расчёт за 10 секунд. Точную цену зафиксируем в смете после бесплатного замера.</p>
+    <div class="calc">
+      <div class="calc-form reveal">
+        <div class="field">
+          <div class="field-top">Площадь квартиры <output id="areaOut">45 м²</output></div>
+          <input type="range" class="slider" id="area" min="15" max="150" value="45" aria-label="Площадь квартиры">
+        </div>
+        <div class="field">
+          <div class="field-top">Вид ремонта</div>
+          <div class="chips">
+            <label><input type="radio" name="kind" value="4500"><span>Черновой</span></label>
+            <label><input type="radio" name="kind" value="5500"><span>Чистовой</span></label>
+            <label><input type="radio" name="kind" value="9900" checked><span>Под ключ</span></label>
+          </div>
+        </div>
+        <label class="toggle">Санузел под ключ <input type="checkbox" id="bath" checked><span class="sw"></span></label>
+        <label class="toggle">Демонтаж и вывоз мусора <input type="checkbox" id="demo"><span class="sw"></span></label>
+        <label class="toggle">Дизайн-проект <input type="checkbox" id="design"><span class="sw"></span></label>
+      </div>
+      <div class="calc-out reveal" style="--d:.1s">
+        <span class="muted">Примерная стоимость работ</span>
+        <div class="total" id="total">0 ₽</div>
+        <span class="muted" id="term">Срок: ~0 недель</span>
+        <div class="rows" id="rows"></div>
+        <a href="#order" class="btn">Зафиксировать цену на замере <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="why" style="padding-top:0">
+  <div class="wrap">
+    <div class="eyebrow reveal">Почему РОВНО</div>
+    <h2 class="reveal">Ремонт, который не стыдно показать</h2>
+    <p class="lead reveal">Знаем, чего боятся заказчики ремонта, поэтому закрыли эти риски договором.</p>
+    <div class="why-grid">
+      <div class="why-card reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></svg></div><h3>Смета до старта</h3><p>Каждая работа отдельной строкой. Видно, за что платите.</p></div>
+      <div class="why-card reveal" style="--d:.08s"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Цена в договоре</h3><p>Стоимость и сроки зафиксированы. Доплат «по ходу» не будет.</p></div>
+      <div class="why-card reveal" style="--d:.16s"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/></svg></div><h3>Оплата по этапам</h3><p>Принимаете этап и платите только за сделанную работу.</p></div>
+      <div class="why-card reveal" style="--d:.24s"><div class="ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg></div><h3>Своя бригада</h3><p>Одни и те же мастера от начала до конца, без случайных людей.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="steps" style="background:var(--card)">
+  <div class="wrap">
+    <div class="eyebrow reveal">Как работаем</div>
+    <h2 class="reveal">6 шагов до новой квартиры</h2>
+    <p class="lead reveal">Вы всегда знаете, что происходит на объекте и что будет дальше.</p>
+    <div class="steps" id="stepsBox">
+      <div class="steps-line"><i></i></div>
+      <div class="step reveal"><div class="n">1</div><h3>Заявка</h3><p>Оставляете заявку на сайте или звоните.</p><small>2 минуты</small></div>
+      <div class="step free reveal" style="--d:.1s"><div class="n">2</div><h3>Замер</h3><p>Приезжаем, всё измеряем, обсуждаем пожелания.</p><small>бесплатно</small></div>
+      <div class="step reveal" style="--d:.2s"><div class="n">3</div><h3>Смета</h3><p>Расписываем работы и материалы.</p><small>1 день</small></div>
+      <div class="step reveal" style="--d:.3s"><div class="n">4</div><h3>Договор</h3><p>Фиксируем цену, сроки и этапы.</p><small>в офисе или у вас</small></div>
+      <div class="step reveal" style="--d:.4s"><div class="n">5</div><h3>Ремонт</h3><p>Фото- и видеоотчёт каждую неделю.</p><small>по графику</small></div>
+      <div class="step reveal" style="--d:.5s"><div class="n">6</div><h3>Сдача</h3><p>Принимаете квартиру и получаете гарантию.</p><small>3 года гарантии</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="reviews">
+  <div class="wrap">
+    <div class="rev-grid">
+      <div>
+        <div class="eyebrow reveal">Отзывы</div>
+        <h2 class="reveal">Что говорят клиенты</h2>
+        <p class="lead reveal">Больше 240 квартир в Перми. Наведите на ленту, чтобы её остановить и прочитать отзыв.</p>
+        <div class="rating reveal"><b>4,9</b><div><div class="stars">★★★★★</div><span>средняя оценка<br>по 186 отзывам</span></div></div>
+        <div class="platforms reveal"><div><strong>4,9</strong>2ГИС</div><div><strong>4,9</strong>Яндекс Карты</div><div><strong>5,0</strong>Авито</div></div>
+        <a href="#order" class="btn reveal">Хочу так же <span class="arr">→</span></a>
+      </div>
+      <div class="stage reveal" aria-label="Отзывы клиентов">
+        <div class="tilt" id="tilt"></div>
+        <div class="fade t"></div><div class="fade b"></div><div class="fade l"></div><div class="fade r"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background:var(--card)">
+  <div class="wrap faq-grid">
+    <div>
+      <div class="eyebrow reveal">Вопросы</div>
+      <h2 class="reveal">Частые вопросы</h2>
+      <p class="lead reveal">Не нашли ответ? Спросите на замере, это бесплатно.</p>
+    </div>
+    <div class="reveal">
+      <details open><summary>Замер правда бесплатный?<i></i></summary><div class="ans">Да. Мастер приезжает, делает замеры и обсуждает задачу. Подписывать договор после замера не обязательно.</div></details>
+      <details><summary>Может ли цена вырасти в процессе?<i></i></summary><div class="ans">Нет. Стоимость зафиксирована в смете и договоре. Новые работы добавляем только по вашему письменному согласию.</div></details>
+      <details><summary>Кто закупает материалы?<i></i></summary><div class="ans">Как вам удобнее: черновые материалы закупаем сами по оптовым ценам с чеками, чистовые можем выбрать вместе или вы покупаете сами.</div></details>
+      <details><summary>Как проходит оплата?<i></i></summary><div class="ans">По этапам: принимаете выполненный этап и оплачиваете его. Большой предоплаты за весь ремонт нет.</div></details>
+      <details><summary>Сколько длится ремонт?<i></i></summary><div class="ans">Санузел – 2–3 недели, однокомнатная под ключ – 6–8 недель, двухкомнатная – 9–12 недель. Точный срок записываем в договор.</div></details>
+      <details><summary>Какая гарантия?<i></i></summary><div class="ans">3 года на все работы по договору. Если что-то пойдёт не так, приедем и исправим бесплатно.</div></details>
+    </div>
+  </div>
+</section>
+
+<section class="order" id="order">
+  <div class="hero-bg"><div class="photo-bg"><img src="https://images.unsplash.com/photo-1541194577687-8c63bf9e7ee3?w=2000&q=70&auto=format&fit=crop" alt="" loading="lazy"></div><div class="blob b1"></div></div>
+  <div class="wrap order-grid">
+    <div>
+      <div class="eyebrow reveal">Бесплатный замер</div>
+      <h2 class="reveal">Узнайте точную цену ремонта</h2>
+      <p class="lead reveal">Оставьте телефон: перезвоним за 15 минут и договоримся о времени замера.</p>
+      <ul class="perks reveal">
+        <li><i>✓</i>Замер и консультация бесплатно</li>
+        <li><i>✓</i>Смета на следующий день</li>
+        <li><i>✓</i>Ни к чему не обязывает</li>
+      </ul>
+      <div class="timer reveal">🔥 На этой неделе свободно <b id="slots">4 окна</b> для замера</div>
+    </div>
+    <form id="form" class="reveal" novalidate>
+      <div id="fields">
+        <h3>Заявка на замер</h3>
+        <p class="muted">Ответим в рабочее время за 15 минут</p>
+        <div class="fl"><input id="name" placeholder=" " autocomplete="name"><label for="name">Ваше имя</label></div>
+        <div class="fl" id="phoneWrap"><input id="phone" type="tel" placeholder=" " autocomplete="tel"><label for="phone">Телефон *</label></div>
+        <div class="fl"><select id="type"><option>Квартира под ключ</option><option>Черновой ремонт</option><option>Чистовой ремонт</option><option>Санузел под ключ</option><option>Нужна консультация</option></select><label for="type">Что нужно сделать</label></div>
+        <label class="check"><input type="checkbox" id="agree"> <span>Согласен на обработку персональных данных и с <a href="#">политикой конфиденциальности</a></span></label>
+        <button class="btn" type="submit">Записаться на замер <span class="arr">→</span></button>
+        <div class="err" id="err"></div>
+      </div>
+      <div class="ok" id="ok">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45"/><path d="M30 52 l14 14 l26 -30"/></svg>
+        <h3>Заявка принята!</h3>
+        <p class="muted">Перезвоним в течение 15 минут, чтобы договориться о замере.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><a href="#" class="logo"><span class="logo-mark"><i></i></span>РОВНО</a><p>Ремонт квартир под ключ в Перми. Работаем по договору со сметой.</p></div>
+      <div><b>Услуги</b><a href="#services">Черновой ремонт</a><br><a href="#services">Чистовой ремонт</a><br><a href="#services">Санузлы под ключ</a></div>
+      <div><b>Контакты</b><a href="tel:+73420000000">+7 (342) 000-00-00</a><br>Пн–сб, 9:00–20:00<br>Пермь, все районы</div>
+      <div><b>Мессенджеры</b><a href="#">Telegram</a><br><a href="#">WhatsApp</a><br><a href="#">ВКонтакте</a></div>
+    </div>
+    <div class="demo-note">Демонстрационный сайт. Компания, цены, отзывы и контакты вымышлены. Изображения сгенерированы нейросетью, фон — Unsplash.</div>
+  </div>
+</footer>
+
+<div class="mobile-call" id="mobileCall">
+  <a class="c1" href="tel:+73420000000">📞 Позвонить</a>
+  <a class="c2" href="#order">Бесплатный замер</a>
+</div>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $ = s => document.querySelector(s);
+  const fmt = n => Math.round(n).toLocaleString('ru-RU') + ' ₽';
+
+  // Прогресс прокрутки, шапка, мобильные кнопки
+  const progress = $('#progress'), header = $('#header'), mob = $('#mobileCall');
+  const onScroll = () => {
+    const h = document.documentElement;
+    progress.style.transform = `scaleX(${h.scrollTop / (h.scrollHeight - h.clientHeight || 1)})`;
+    header.classList.toggle('scrolled', h.scrollTop > 40);
+    mob.classList.toggle('show', h.scrollTop > 500);
+  };
+  addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+  // Появление при прокрутке + счётчики
+  const countUp = el => {
+    const end = +el.dataset.count, t0 = performance.now(), dur = 1600;
+    const tick = t => { const p = Math.min((t - t0) / dur, 1); el.textContent = Math.round(end * (1 - Math.pow(1 - p, 3))); if (p < 1) requestAnimationFrame(tick); };
+    reduce ? el.textContent = end : requestAnimationFrame(tick);
+  };
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('in');
+    e.target.querySelectorAll('[data-count]').forEach(countUp);
+    io.unobserve(e.target);
+  }), {threshold:.15, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal, #stepsBox').forEach(el => io.observe(el));
+
+  // Сменяющиеся слова в заголовке
+  const words = ['без сюрпризов', 'по смете', 'в срок', 'с гарантией'];
+  const rot = $('#rotator'); let wi = 0;
+  if (!reduce) setInterval(() => { wi = (wi + 1) % words.length; rot.innerHTML = `<span class="in">${words[wi]}</span>`; }, 2600);
+
+  // Карточки на первом экране слегка смещаются за мышкой (параллакс)
+  const hv = document.querySelector('.hero-visual');
+  if (!reduce && matchMedia('(hover:hover)').matches) {
+    addEventListener('mousemove', e => {
+      const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
+      hv.style.transform = `translate(${x * -24}px, ${y * -18}px)`;
+    });
+  }
+
+  // Подсветка карточек за курсором
+  document.querySelectorAll('.card').forEach(c => c.addEventListener('mousemove', e => {
+    const r = c.getBoundingClientRect();
+    c.style.setProperty('--x', e.clientX - r.left + 'px'); c.style.setProperty('--y', e.clientY - r.top + 'px');
+  }));
+
+  // До / после
+  // Сначала пробуем свои картинки из img/ (living-after.jpg и т.д.), если их нет — берём фото со стока
+  const U = id => `https://images.unsplash.com/${id}?w=1800&q=75&auto=format&fit=crop`;
+  const stock = {
+    'living-before': U('photo-1634586648651-f1fb9ec10d90'), 'living-after': U('photo-1738168246881-40f35f8aba0a'),
+    'bath-before': U('photo-1517581177682-a085bb7ffb15'),   'bath-after': U('photo-1587527901949-ab0341697c1e'),
+    'kitchen-before': U('photo-1618832515490-e181c4794a45'), 'kitchen-after': U('photo-1671197244266-73129c97c096'),
+  };
+  const loadImg = (el, name) => { el.onerror = () => { el.onerror = null; el.src = stock[name]; }; el.src = `img/${name}.jpg`; };
+  const projects = [
+    {img:'living', meta:[['Объект','Двушка, Гайва'],['Площадь','54 м²'],['Срок','11 недель'],['Смета','534 600 ₽']]},
+    {img:'bath', meta:[['Объект','Санузел, Мотовилиха'],['Площадь','4,2 м²'],['Срок','16 дней'],['Смета','168 000 ₽']]},
+    {img:'kitchen', meta:[['Объект','Кухня, Центр'],['Площадь','12 м²'],['Срок','5 недель'],['Смета','212 000 ₽']]},
+  ];
+  const ba = $('#ba'), range = $('#baRange'), meta = $('#baMeta');
+  const setPos = v => ba.style.setProperty('--pos', v + '%');
+  range.addEventListener('input', () => setPos(range.value));
+  const showProject = i => {
+    const p = projects[i];
+    loadImg($('#baAfter'), p.img + '-after'); loadImg($('#baBefore'), p.img + '-before');
+    meta.innerHTML = p.meta.map(([k,v]) => `<div><span>${k}</span><b>${v}</b></div>`).join('');
+    document.querySelectorAll('.tabs button').forEach((b,j) => b.classList.toggle('active', i === j));
+    if (!reduce) { let v = 15; range.value = v; setPos(v); const anim = () => { v += (50 - v) * .08; range.value = v; setPos(v); if (Math.abs(50 - v) > .3) requestAnimationFrame(anim); }; requestAnimationFrame(anim); }
+  };
+  document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => showProject(+b.dataset.ba)));
+  showProject(0);
+
+  // Калькулятор
+  const area = $('#area'), totalEl = $('#total'); let shown = 0;
+  const calc = () => {
+    const s = +area.value, rate = +document.querySelector('input[name=kind]:checked').value;
+    area.style.setProperty('--fill', ((s - area.min) / (area.max - area.min) * 100) + '%');
+    $('#areaOut').textContent = s + ' м²';
+    const rows = [['Работы, ' + s + ' м² × ' + rate.toLocaleString('ru-RU') + ' ₽', s * rate]];
+    if ($('#bath').checked) rows.push(['Санузел под ключ', 140000]);
+    if ($('#demo').checked) rows.push(['Демонтаж и вывоз', s * 650]);
+    if ($('#design').checked) rows.push(['Дизайн-проект', s * 1200]);
+    const sum = rows.reduce((a, r) => a + r[1], 0);
+    $('#rows').innerHTML = rows.map(([k,v]) => `<div><span>${k}</span><b>${fmt(v)}</b></div>`).join('');
+    const weeks = Math.max(2, Math.round(s / (rate > 6000 ? 6 : 12) + ($('#bath').checked ? 1 : 0)));
+    $('#term').textContent = `Срок: ~${weeks} нед.`;
+    const from = shown, t0 = performance.now();
+    const tick = t => { const p = Math.min((t - t0) / 500, 1); shown = from + (sum - from) * (1 - Math.pow(1 - p, 3)); totalEl.textContent = fmt(shown); if (p < 1) requestAnimationFrame(tick); };
+    reduce ? (shown = sum, totalEl.textContent = fmt(sum)) : requestAnimationFrame(tick);
+  };
+  document.querySelectorAll('#calc input').forEach(i => i.addEventListener('input', calc));
+  calc();
+
+  // Отзывы: 4 колонки в 3D, соседние едут в разные стороны
+  const reviews = [
+    ['Анна', 'двушка под ключ, Гайва', 'Смету не превысили ни на рубль, хотя я честно этого ждала. Каждую пятницу – видео с объекта.', '#ff6a2b'],
+    ['Дмитрий', 'санузел, Мотовилиха', 'Санузел за 16 дней, как в договоре. Плитка ровная, швы идеальные, мусор вывезли сами.', '#4a6d68'],
+    ['Елена', 'чистовой, 38 м²', 'Платили по этапам. Все замечания при приёмке исправили на следующий день.', '#2b2f33'],
+    ['Сергей и Ольга', 'новостройка, 71 м²', 'Купили квартиру в бетоне – заехали точно в срок. От стяжки до люстр всё сделали ребята.', '#c4521b'],
+    ['Марина', 'кухня, Центр', 'Прораб помог выбрать плитку на фартук и сэкономил нам 30 тысяч на материалах.', '#8a6a4f'],
+    ['Игорь', 'черновой, 52 м²', 'Электрику сделали с запасом розеток и подписали схему. Видно, что для себя делают.', '#3d5a80'],
+    ['Татьяна', 'однушка под ключ', 'Боялась ремонта как огня. Оказалось спокойно: всё по графику, никаких сюрпризов.', '#ff6a2b'],
+    ['Алексей', 'санузел, Пермь II', 'Гидроизоляцию показали до плитки, с фото. Мелочь, но доверие сразу другое.', '#4a6d68'],
+    ['Ксения', 'двушка, Свердловский', 'Замерщик приехал на следующий день, смету прислали вечером. Очень быстро.', '#2b2f33'],
+    ['Павел', 'квартира под сдачу', 'Сделали бюджетно, но аккуратно. Квартиру сдал через неделю после ремонта.', '#c4521b'],
+    ['Наталья', 'чистовой, Индустриальный', 'Обои поклеили так, что стыков не видно. Соседи уже спрашивают контакты.', '#8a6a4f'],
+    ['Роман', 'трёшка под ключ', 'Большой объект, а цена в договоре так и не поменялась. Рекомендую.', '#3d5a80'],
+  ];
+  const card = ([n, w, t, c]) => `<figure class="tcard"><div class="who"><div class="ava" style="background:${c}">${n[0]}</div><div><b>${n}</b><span>${w}</span></div></div><div class="st">★★★★★</div><p>${t}</p></figure>`;
+  $('#tilt').innerHTML = [0, 1, 2, 3].map(col => {
+    const list = reviews.map((_, i) => reviews[(i + col * 3) % reviews.length]).map(card).join('');
+    const groups = Array.from({length: 3}, (_, g) => `<div class="mq-group"${g ? ' aria-hidden="true"' : ''}>${list}</div>`).join('');
+    return `<div class="mq${col % 2 ? ' up' : ''}" style="--duration:${36 + col * 6}s">${groups}</div>`;
+  }).join('');
+
+  // Вопросы: открыт только один
+  document.querySelectorAll('details').forEach(d => d.addEventListener('toggle', () => {
+    if (d.open) document.querySelectorAll('details').forEach(o => o !== d && (o.open = false));
+  }));
+
+  // Форма
+  const phone = $('#phone');
+  phone.addEventListener('input', () => {
+    let d = phone.value.replace(/\D/g, '');
+    if (!d) { phone.value = ''; return; }
+    if (d[0] === '8') d = '7' + d.slice(1);
+    if (d[0] !== '7') d = '7' + d;
+    d = d.slice(0, 11);
+    let s = '+7';
+    if (d.length > 1) s += ' (' + d.slice(1, 4);
+    if (d.length >= 4) s += ') ' + d.slice(4, 7);
+    if (d.length >= 7) s += '-' + d.slice(7, 9);
+    if (d.length >= 9) s += '-' + d.slice(9, 11);
+    phone.value = s;
+  });
+  $('#form').addEventListener('submit', e => {
+    e.preventDefault();
+    const err = $('#err'), wrap = $('#phoneWrap');
+    wrap.classList.remove('bad');
+    if (phone.value.replace(/\D/g, '').length !== 11) { void wrap.offsetWidth; wrap.classList.add('bad'); err.textContent = 'Укажите телефон полностью, чтобы мы могли перезвонить'; return; }
+    if (!$('#agree').checked) { err.textContent = 'Отметьте согласие на обработку данных'; return; }
+    err.textContent = '';
+    $('#fields').style.display = 'none'; $('#ok').style.display = 'block';
+  });
+})();
+</script>
+</body>
+</html>
