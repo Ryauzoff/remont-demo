@@ -133,12 +133,14 @@
   /* До / после */
   .ba-section{background:var(--dark);color:#fff;overflow:hidden}
   .ba-section .lead{color:#aeb4bc}
-  .ba-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:36px}
-  .ba-head .lead{margin-bottom:0}
-  .tabs{display:flex;gap:6px;background:rgba(255,255,255,.06);padding:6px;border-radius:999px;border:1px solid rgba(255,255,255,.1)}
-  .tabs button{font:inherit;font-weight:700;font-size:15px;color:#cfd3d8;background:none;border:0;padding:10px 20px;border-radius:999px;cursor:pointer;transition:background .3s,color .3s}
-  .tabs button.active{background:#fff;color:var(--ink)}
-  .ba{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:16/10;user-select:none;--pos:50%;box-shadow:0 40px 80px -40px rgba(0,0,0,.9)}
+  .ba-list{display:grid;gap:72px}
+  .ba-item{display:grid;grid-template-columns:1.45fr 1fr;gap:48px;align-items:center}
+  .ba-item:nth-child(even){grid-template-columns:1fr 1.45fr}
+  .ba-item:nth-child(even) .ba{order:2}
+  .ba-num{font-family:Unbounded;font-size:14px;color:var(--accent);margin-bottom:12px}
+  .ba-info h3{font-size:clamp(24px,2.6vw,32px);margin-bottom:12px}
+  .ba-info p{color:#aeb4bc;margin-bottom:24px}
+  .ba{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:4/3;user-select:none;--pos:50%;box-shadow:0 40px 80px -40px rgba(0,0,0,.9)}
   .ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .4s}
   .ba .before{clip-path:inset(0 calc(100% - var(--pos)) 0 0)}
   .ba-line{position:absolute;top:0;bottom:0;left:var(--pos);width:3px;margin-left:-1.5px;background:#fff;pointer-events:none}
@@ -148,10 +150,10 @@
   .ba-label.l{left:20px}
   .ba-label.r{right:20px;background:var(--accent)}
   .ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0}
-  .ba-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:24px}
-  .ba-meta div{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:18px}
+  .ba-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .ba-meta div{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:16px}
   .ba-meta span{display:block;color:#8f96a0;font-size:13px;margin-bottom:4px}
-  .ba-meta b{font-family:Unbounded;font-size:18px}
+  .ba-meta b{font-family:Unbounded;font-size:17px}
   .hint{display:flex;align-items:center;gap:8px;color:#8f96a0;font-size:14px;margin-top:16px}
 
   /* Калькулятор */
@@ -303,7 +305,9 @@
     .services,.why-grid{grid-template-columns:repeat(2,1fr)}
     .steps{grid-template-columns:repeat(3,1fr);row-gap:40px}
     .steps-line{display:none}
-    .hero-grid,.calc,.order-grid,.faq-grid,.rev-grid{grid-template-columns:1fr}
+    .hero-grid,.calc,.order-grid,.faq-grid,.rev-grid,.ba-item,.ba-item:nth-child(even){grid-template-columns:1fr}
+    .ba-item:nth-child(even) .ba{order:0}
+    .ba-item{gap:24px}
     .hero-visual{max-width:620px}
     nav,.top-phone{display:none}
     .foot{grid-template-columns:1fr 1fr}
@@ -314,11 +318,9 @@
     .hero{padding:110px 0 64px;min-height:0}
     .hero h1{font-size:30px}
     .services,.why-grid,.steps{grid-template-columns:1fr}
-    .ba{aspect-ratio:4/3;border-radius:20px}
-    .ba-meta{grid-template-columns:1fr 1fr}
+    .ba{border-radius:20px}
+    .ba-list{gap:56px}
     .ba-handle{width:52px;height:52px;margin:-26px 0 0 -26px}
-    .tabs{width:100%}
-    .tabs button{flex:1;padding:10px 6px;font-size:14px}
     .facts{gap:28px}
     .hero-visual{display:none}
     .photo-bg::after{background:linear-gradient(180deg,rgba(14,15,18,.55) 0%,rgba(14,15,18,.85) 55%,rgba(14,15,18,.97) 100%)}
@@ -445,27 +447,10 @@
 
 <section class="ba-section" id="before-after">
   <div class="wrap">
-    <div class="ba-head">
-      <div>
-        <div class="eyebrow reveal">Было → стало</div>
-        <h2 class="reveal">Потяните ползунок</h2>
-        <p class="lead reveal">Три объекта, которые мы сдали в этом году. Слева квартира в день замера, справа в день сдачи.</p>
-      </div>
-      <div class="tabs reveal" role="tablist">
-        <button class="active" data-ba="0" role="tab">Гостиная</button>
-        <button data-ba="1" role="tab">Санузел</button>
-        <button data-ba="2" role="tab">Кухня</button>
-      </div>
-    </div>
-    <div class="ba reveal" id="ba">
-      <img class="after" id="baAfter" alt="После ремонта">
-      <img class="before" id="baBefore" alt="До ремонта">
-      <div class="ba-line"></div>
-      <div class="ba-handle">⇆</div>
-      <span class="ba-label l">До</span><span class="ba-label r">После</span>
-      <input type="range" min="0" max="100" value="50" id="baRange" aria-label="Сравнить до и после">
-    </div>
-    <div class="ba-meta reveal" id="baMeta"></div>
+    <div class="eyebrow reveal">Было → стало</div>
+    <h2 class="reveal">Потяните ползунок</h2>
+    <p class="lead reveal">Три объекта, которые мы сдали в этом году: гостиная, кухня и санузел. Слева – день замера, справа – день сдачи.</p>
+    <div class="ba-list" id="baList"></div>
     <div class="hint">👆 Тяните ползунок пальцем или мышкой</div>
   </div>
 </section>
@@ -683,22 +668,42 @@
   };
   const loadImg = (el, name) => { el.onerror = () => { el.onerror = null; el.src = stock[name]; }; el.src = `img/${name}.jpg`; };
   const projects = [
-    {img:'living', meta:[['Объект','Двушка, Гайва'],['Площадь','54 м²'],['Срок','11 недель'],['Смета','534 600 ₽']]},
-    {img:'bath', meta:[['Объект','Санузел, Мотовилиха'],['Площадь','4,2 м²'],['Срок','16 дней'],['Смета','168 000 ₽']]},
-    {img:'kitchen', meta:[['Объект','Кухня, Центр'],['Площадь','12 м²'],['Срок','5 недель'],['Смета','212 000 ₽']]},
+    {img:'living', title:'Гостиная в новостройке', text:'Квартира из бетонной коробки: стяжка, электрика, штукатурка, паркет и покраска стен.', meta:[['Объект','Двушка, Гайва'],['Площадь','54 м²'],['Срок','11 недель'],['Смета','534 600 ₽']]},
+    {img:'kitchen', title:'Кухня с островом', text:'Перенесли мойку, развели воду и электрику под технику, выложили фартук из терракотовой плитки.', meta:[['Объект','Кухня, Центр'],['Площадь','12 м²'],['Срок','5 недель'],['Смета','212 000 ₽']]},
+    {img:'bath', title:'Санузел под ключ', text:'Демонтаж старой плитки, новые трубы, гидроизоляция, крупноформатный керамогранит и инсталляция.', meta:[['Объект','Санузел, Мотовилиха'],['Площадь','4,2 м²'],['Срок','16 дней'],['Смета','168 000 ₽']]},
   ];
-  const ba = $('#ba'), range = $('#baRange'), meta = $('#baMeta');
-  const setPos = v => ba.style.setProperty('--pos', v + '%');
-  range.addEventListener('input', () => setPos(range.value));
-  const showProject = i => {
-    const p = projects[i];
-    loadImg($('#baAfter'), p.img + '-after'); loadImg($('#baBefore'), p.img + '-before');
-    meta.innerHTML = p.meta.map(([k,v]) => `<div><span>${k}</span><b>${v}</b></div>`).join('');
-    document.querySelectorAll('.tabs button').forEach((b,j) => b.classList.toggle('active', i === j));
-    if (!reduce) { let v = 15; range.value = v; setPos(v); const anim = () => { v += (50 - v) * .08; range.value = v; setPos(v); if (Math.abs(50 - v) > .3) requestAnimationFrame(anim); }; requestAnimationFrame(anim); }
-  };
-  document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => showProject(+b.dataset.ba)));
-  showProject(0);
+  const list = $('#baList');
+  list.innerHTML = projects.map((p, i) => `
+    <div class="ba-item">
+      <div class="ba reveal">
+        <img class="after" alt="${p.title} после ремонта" loading="lazy">
+        <img class="before" alt="${p.title} до ремонта" loading="lazy">
+        <div class="ba-line"></div><div class="ba-handle">⇆</div>
+        <span class="ba-label l">До</span><span class="ba-label r">После</span>
+        <input type="range" min="0" max="100" value="50" aria-label="Сравнить до и после: ${p.title}">
+      </div>
+      <div class="ba-info reveal" style="--d:.1s">
+        <div class="ba-num">0${i + 1} / 0${projects.length}</div>
+        <h3>${p.title}</h3>
+        <p>${p.text}</p>
+        <div class="ba-meta">${p.meta.map(([k,v]) => `<div><span>${k}</span><b>${v}</b></div>`).join('')}</div>
+      </div>
+    </div>`).join('');
+  list.querySelectorAll('.ba-item').forEach((item, i) => {
+    const ba = item.querySelector('.ba'), range = ba.querySelector('input');
+    loadImg(ba.querySelector('.after'), projects[i].img + '-after');
+    loadImg(ba.querySelector('.before'), projects[i].img + '-before');
+    const setPos = v => ba.style.setProperty('--pos', v + '%');
+    range.addEventListener('input', () => setPos(range.value));
+    // При появлении ползунок «показывает себя»: уезжает влево и возвращается в центр
+    if (!reduce) new IntersectionObserver((es, o) => es.forEach(e => {
+      if (!e.isIntersecting) return; o.disconnect();
+      let t0 = performance.now();
+      const anim = t => { const p = Math.min((t - t0) / 1400, 1); const v = 50 - 35 * Math.sin(p * Math.PI); range.value = v; setPos(v); if (p < 1) requestAnimationFrame(anim); };
+      requestAnimationFrame(anim);
+    }), {threshold:.5}).observe(ba);
+  });
+  list.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
   // Калькулятор
   const area = $('#area'), totalEl = $('#total'); let shown = 0;
